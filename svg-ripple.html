@@ -11,7 +11,9 @@
 </head>
 <body>
     <svg width="100px" height="100px" id="mySvg">
+        
         <circle cx="50" cy="50" r="50" fill="#77f9f9"></circle>
+        
         <defs>
             <clipPath id="myClip">
                 <circle cx="50" cy="50" r="50"></circle>
@@ -28,7 +30,14 @@
                 <animateMotion attributeName="x" from="-99,0" to="1,0" dur="2s" repeatCount="indefinite" />
             </path>
         </g>
+        
+        <text id="myText" text-anchor="middle" font-size="30px" transform="translate(50,50)" style="fill: #000">50%</text>
     </svg>
+
+    <br>
+    <br>
+
+    <input type="range" min="0" max="100" step="1" value="50" onchange="init(this.value)">
 
     <script>
 
@@ -36,11 +45,14 @@
 
         function init(percent){
             var g = document.getElementById('myG');
+            var text = document.getElementById('myText');
             var path = g.querySelectorAll('path');
             var animate = g.querySelectorAll('animate');
 
             var per = 100 - percent;
             var offset = per + 10;
+
+            text.innerHTML = percent+'%';
 
             [].forEach.call(path, function (v) {
                 v.setAttribute('d', ` M0 ${per} Q 25 ${offset}, 50 ${per} T 100 ${per} L 100 100 L 0 100 Z`)
