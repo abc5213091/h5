@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     body{ margin: 0; padding:0;}
+    </style>
+</head>
+<body>
+    <svg width="100px" height="100px" id="mySvg">
+        <circle cx="50" cy="50" r="50" fill="#77f9f9"></circle>
+        <defs>
+            <clipPath id="myClip">
+                <circle cx="50" cy="50" r="50"></circle>
+            </clipPath>
+        </defs>
+        <g clip-path="url(#myClip)" id="myG">
+            <path fill="#229f24">
+                    <animate dur="2" repeatCount="1" attributeName="d" attributeType="XML" values=""></animate>
+                    <animateMotion attributeName="x" from="0,0" to="100,0" dur="2s" repeatCount="indefinite"/>
+            </path>
+
+            <path  fill="#229f24">
+                <animate dur="2" repeatCount="1" attributeName="d" attributeType="XML" values=""></animate>
+                <animateMotion attributeName="x" from="-99,0" to="1,0" dur="2s" repeatCount="indefinite" />
+            </path>
+        </g>
+    </svg>
+
+    <script>
+
+        init(50)
+
+        function init(percent){
+            var g = document.getElementById('myG');
+            var path = g.querySelectorAll('path');
+            var animate = g.querySelectorAll('animate');
+
+            var per = 100 - percent;
+            var offset = per + 10;
+
+            [].forEach.call(path, function (v) {
+                v.setAttribute('d', ` M0 ${per} Q 25 ${offset}, 50 ${per} T 100 ${per} L 100 100 L 0 100 Z`)
+            });
+            [].forEach.call(animate, function (v) {
+                v.setAttribute('values', ` M0 100 Q 20 80, 50 100 T 100 100 L 100 100 L 0 100 Z; M0 ${per} Q 25 ${offset}, 50 ${per} T 100 ${per} L 100 100 L 0 100 Z`)
+            })
+            document.getElementById('mySvg').innerHTML = document.getElementById('mySvg').innerHTML
+        }
+       
+        
+
+    </script>
+</body>
+</html>
